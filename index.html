@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AlimCase</title>
+
+<style>
+:root {
+  --bg1: #0a0d1a;
+  --bg2: #121728;
+  --bg3: #1b2035;
+
+  --glow-blue: rgba(120,180,255,0.35);
+  --glow-pink: rgba(255,150,210,0.28);
+  --glow-mint: rgba(140,255,220,0.22);
+
+  --surface: rgba(255,255,255,0.08);
+  --surface-soft: rgba(255,255,255,0.12);
+  --border: rgba(255,255,255,0.14);
+
+  --text: #f5f7ff;
+  --text-soft: #c4c9d9;
+  --text-muted: #8a90a3;
+
+  --accent: #7ac7ff;
+  --accent2: #ff9edc;
+  --accent3: #8fffe0;
+
+  --radius: 20px;
+  --radius-lg: 26px;
+
+  --shadow: 0 12px 28px rgba(0,0,0,0.55);
+  --shadow-big: 0 18px 40px rgba(0,0,0,0.75);
+
+  --font: "Inter", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font); }
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 10%, var(--glow-blue), transparent 60%),
+    radial-gradient(circle at 80% 0%, var(--glow-pink), transparent 60%),
+    radial-gradient(circle at 50% 80%, var(--glow-mint), transparent 70%),
+    linear-gradient(180deg, var(--bg1), var(--bg2), var(--bg3));
+  color: var(--text);
+  padding-bottom: 130px;
+  overflow-x: hidden;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 18px;
+  background: radial-gradient(circle at 30% 20%, #ffffff, #ffd7f1 40%, #7ac7ff 100%);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: #1a1d2b;
+  font-weight: 700;
+  animation: bubbleFloat 3s ease-in-out infinite;
+}
+
+@keyframes bubbleFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+.logo-title {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #7ac7ff, #ff9edc);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.logo-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* BALANCE */
+.balance-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.balance-label { font-size: 12px; color: var(--text-soft); }
+.balance-value { font-size: 28px; font-weight: 700; margin-top: 6px; }
+
+.btn-primary {
+  margin-top: 14px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7ac7ff, #ff9edc);
+  color: #11121a;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-big);
+  transition: transform 0.15s ease;
+}
+
+.btn-primary:active { transform: scale(0.96); }
+
+/* CASE GRID */
+.cases-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.case-card {
+  background: var(--surface-soft);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.case-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: var(--shadow-big);
+}
+
+.case-icon-wrap {
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+
+.case-icon { font-size: 28px; }
+.case-title { font-size: 15px; font-weight: 700; }
+.case-price { margin-top: 6px; font-size: 13px; color: var(--text-soft); }
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  padding: 0 18px;
+  z-index: 10;
+}
+
+.nav-inner {
+  background: rgba(255,255,255,0.08);
+  border-radius: 26px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-big);
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  backdrop-filter: blur(22px);
+}
+
+.nav-item {
+  flex: 1;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 4px 0;
+}
+
+.nav-item-icon { font-size: 20px; margin-bottom: 2px; display: block; }
+
+.nav-item.active { color: var(--accent); font-weight: 700; }
+.nav-item.active .nav-item-icon { transform: scale(1.25); color: var(--accent); }
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <!-- LOGO -->
+  <div class="logo">
+    <div class="logo-icon">A</div>
+    <div>
+      <div class="logo-title">AlimCase</div>
+      <div class="logo-sub">мягкие игровые кейсы</div>
+    </div>
+  </div>
+
+  <!-- BALANCE -->
+  <div class="balance-card">
+    <div class="balance-label">Баланс</div>
+    <div class="balance-value">0 ⭐</div>
+    <button class="btn-primary">Пополнить</button>
+  </div>
+
+  <!-- CASE GRID -->
+  <div class="cases-grid">
+    <div class="case-card"><div class="case-icon-wrap"><span class="case-icon">🫧</span></div><div class="case-title">Starter Box</div><div class="case-price">15 ⭐</div></div>
+    <div class="case-card"><div class="case-icon-wrap"><span class="case-icon">🍭</span></div><div class="case-title">Candy Burst</div><div class="case-price">50 ⭐</div></div>
+    <div class="case-card"><div class="case-icon-wrap"><span class="case-icon">🍀</span></div><div class="case-title">Charm Box</div><div class="case-price">100 ⭐</div></div>
+    <div class="case-card"><div class="case-icon-wrap"><span class="case-icon">🔧</span></div><div class="case-title">Gadget Drop</div><div class="case-price">200 ⭐</div></div>
+    <div class="case-card"><div class="case-icon-wrap"><span class="case-icon">✨</span></div><div class="case-title">Epic Mix</div><div class="case-price">350 ⭐</div></div>
+    <div class="case-card"><div class="case-icon-wrap"><span class="case-icon">💎</span></div><div class="case-title">Mythic Vault</div><div class="case-price">600 ⭐</div></div>
+    <div class="case-card"><div class="case-icon-wrap"><span class="case-icon">🌟</span></div><div class="case-title">Ultra Fortune</div><div class="case-price">1000 ⭐</div></div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-inner">
+    <div class="nav-item active"><span class="nav-item-icon">🎁</span>Кейсы</div>
+    <div class="nav-item"><span class="nav-item-icon">⬆️</span>Апгрейд</div>
+    <div class="nav-item"><span class="nav-item-icon">🎮</span>Игры</div>
+    <div class="nav-item"><span class="nav-item-icon">👤</span>Профиль</div>
+  </div>
+</div>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+const tg = window.Telegram.WebApp;
+tg.ready();
+
+// URL на твой Vercel API после деплоя
+const API = "https://dddd.vercel.app/api";
+
+// Загрузка баланса
+async function loadBalance() {
+  const user = tg.initDataUnsafe.user;
+  if (!user) return;
+
+  const res = await fetch(`${API}/balance?user_id=${user.id}`);
+  const data = await res.json();
+  document.querySelector(".balance-value").innerText = data.balance + " ⭐";
+}
+
+// Пополнение Stars
+async function topUp(amount) {
+  const user = tg.initDataUnsafe.user;
+  if (!user) { alert("Открой через Telegram"); return; }
+
+  await fetch(`${API}/create-invoice`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: user.id, amount })
+  });
+}
+
+document.querySelector(".btn-primary").addEventListener("click", () => topUp(100));
+
+loadBalance();
+</script>
+
+</body>
+</html>

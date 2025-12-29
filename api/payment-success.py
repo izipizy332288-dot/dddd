@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 import json
 
+# Хранилище баланса
 USERS = {}
 
 class handler(BaseHTTPRequestHandler):
@@ -15,6 +16,4 @@ class handler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(json.dumps({
-            "balance": USERS[user_id]
-        }).encode())
+        self.wfile.write(json.dumps({"balance": USERS[user_id]}).encode())

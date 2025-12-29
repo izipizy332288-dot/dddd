@@ -1,11 +1,11 @@
 from http.server import BaseHTTPRequestHandler
 import json
-import os
 import asyncio
 from aiogram import Bot
 from aiogram.types import LabeledPrice
 
-BOT_TOKEN = os.environ["BOT_TOKEN"]
+# Токен твоего бота
+BOT_TOKEN = "7564007811:AAHobQK4KZ4kSaEEUNLWNt4dIIcDHeRMvD4"
 bot = Bot(token=BOT_TOKEN)
 
 class handler(BaseHTTPRequestHandler):
@@ -17,13 +17,14 @@ class handler(BaseHTTPRequestHandler):
         user_id = data["user_id"]
         amount = data["amount"]
 
+        # Отправляем инвойс Telegram
         asyncio.run(
             bot.send_invoice(
                 chat_id=user_id,
                 title="AlimCase",
                 description=f"Пополнение на {amount} ⭐",
                 payload=f"topup_{user_id}_{amount}",
-                provider_token="",
+                provider_token="",  # Stars
                 currency="XTR",
                 prices=[LabeledPrice(label="Stars", amount=amount)],
             )
